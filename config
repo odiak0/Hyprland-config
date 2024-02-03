@@ -1,0 +1,4 @@
+indicator
+clock
+image=/usr/share/hyprland/mazda.jpg
+effect-blur=20x6
