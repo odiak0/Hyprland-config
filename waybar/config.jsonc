@@ -30,7 +30,7 @@
         "all-outputs": true,
         "on-click": "activate",
         //"format": "{icon}",
-        "persistent_workspaces": {
+        "active-workspaces": {
             "1": [],
             "2": [],
             "3": [],
