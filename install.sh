@@ -26,7 +26,7 @@ fc-cache -rv
 
 ### Moving configs ###
 
-cd ~/Downloads/hyprland-config
+cd ~/hyprland-config
 cd hyprland/
 mkdir ~/.config/hypr
 sudo mv -f hyprland.conf ~/.config/hypr/
