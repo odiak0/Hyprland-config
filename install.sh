@@ -1,5 +1,12 @@
 #!/bin/bash
 
+### Installing yay ###
+cd
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+rm -rf ~/yay
+
 ### Installing packages ###
 
 sudo pacman -S --noconfirm thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman gvfs kitty waybar sddm wget unzip
