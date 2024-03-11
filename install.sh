@@ -51,7 +51,7 @@ sudo mv -f config.jsonc style.css /etc/xdg/waybar/
 sudo rm -rf /etc/xdg/waybar/config
 cd ~/.config/
 mkdir waybar
-cd ~/Downloads/hyprland-config/waybar/
+cd ~/hyprland-config/waybar/
 sudo mv -f scripts/ ~/.config/waybar/
 chmod +x ~/.config/waybar/scripts/waybar-wttr.py
 cd ~/Downloads/
