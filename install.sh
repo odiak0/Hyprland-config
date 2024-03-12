@@ -56,5 +56,8 @@ sudo mv -f scripts/ ~/.config/waybar/
 chmod +x ~/.config/waybar/scripts/waybar-wttr.py
 cd ~/Downloads/
 
+### Enabling sddm ###
+sudo systemctl enable sddm
+
 GREEN='\033[0;32m'
-printf "\n${GREEN} Installation Completed.\n"
+printf "\n${GREEN} Now you can reboot!\n"
