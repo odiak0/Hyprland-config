@@ -58,7 +58,14 @@ chmod +x ~/.config/waybar/scripts/waybar-wttr.py
 cd ~/Downloads/
 
 ### Enabling sddm ###
+
 sudo systemctl enable sddm
+
+### Installing theme ###
+
+cd /usr/share/themes/
+git clone https://github.com/EliverLara/Nordic.git
+cd
 
 GREEN='\033[0;32m'
 printf "\n${GREEN} Now you can reboot!\n"
