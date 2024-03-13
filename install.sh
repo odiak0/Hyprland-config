@@ -61,11 +61,5 @@ cd ~/Downloads/
 
 sudo systemctl enable sddm
 
-### Installing theme ###
-
-cd /usr/share/themes/
-git clone https://github.com/EliverLara/Nordic.git
-cd
-
 GREEN='\033[0;32m'
 printf "\n${GREEN} Now you can reboot!\n"
