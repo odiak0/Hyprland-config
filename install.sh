@@ -5,12 +5,12 @@
 cd
 git clone https://aur.archlinux.org/yay.git
 cd yay
-makepkg -si
+makepkg -si --noconfirm --needed
 rm -rf ~/yay
 
 ### Installing packages ###
 
-yay -S --noconfirm hyprland lxsession thunar fuse2 thunar-archive-plugin thunar-media-tags-plugin thunar-volman gvfs github-desktop-bin vscodium-bin kitty waybar sddm wget curl unzip btop ffmpeg neovim viewnior rofi ttf-liberation pavucontrol wl-clipboard wf-recorder swaybg grimblast-git ffmpegthumbnailer tumbler playerctl noise-suppression-for-voice nwg-look-bin nordic-theme papirus-icon-theme dunst otf-sora ttf-nerd-fonts-symbols-common otf-firamono-nerd inter-font ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-comfortaa ttf-jetbrains-mono-nerd ttf-icomoon-feather ttf-iosevka-nerd adobe-source-code-pro-fonts brightnessctl hyprpicker-git
+yay -S --noconfirm --needed hyprland lxsession thunar fuse2 thunar-archive-plugin thunar-media-tags-plugin thunar-volman gvfs github-desktop-bin vscodium-bin kitty waybar sddm wget curl unzip btop ffmpeg neovim viewnior rofi ttf-liberation pavucontrol wl-clipboard wf-recorder swaybg grimblast-git ffmpegthumbnailer tumbler playerctl nwg-look-bin nordic-theme papirus-icon-theme dunst otf-sora ttf-nerd-fonts-symbols-common otf-firamono-nerd inter-font ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-comfortaa ttf-jetbrains-mono-nerd ttf-icomoon-feather ttf-iosevka-nerd adobe-source-code-pro-fonts brightnessctl hyprpicker
 
 ### Fonts for Waybar ###
 
@@ -26,38 +26,25 @@ fc-cache -rv
 ### Moving configs ###
 
 cd ~/hyprland-config/
-cd hyprland/
 mkdir ~/.config/hypr
-sudo mv -f hyprland.conf ~/.config/hypr/
-cd ..
-cd kitty/
+mv -vf ~/hyprland-config/hyprland/hyprland.conf ~/.config/hypr/
 mkdir ~/.config/kitty
-sudo mv -f kitty.conf ~/.config/kitty/
-cd ..
-cd rofi/
+mv -vf ~/hyprland-config/kitty/kitty.conf ~/.config/kitty/
 mkdir ~/.config/rofi
-sudo mv -f config.rasi ~/.config/rofi/
-cd ..
-cd sddm-theme/
-sudo mv -f aerial/ /usr/share/sddm/themes/
-cd ..
-cd wallpaper/
-mkdir /usr/share/hyprland
-sudo mv -f mazda.jpg /usr/share/hyprland/
-cd ..
-cd waybar/
-sudo mv -f config.jsonc style.css /etc/xdg/waybar/
+mv -vf ~/hyprland-config/rofi/config.rasi ~/.config/rofi/
+sudo mv -vf ~/hyprland-config/sddm-theme/aerial/ /usr/share/sddm/themes/
+mkdir ~/wallpaper
+mv -vf ~/hyprland-config/wallpaper/* ~/wallpaper
+sudo mv -vf ~/hyprland-config/waybar/config.jsonc /etc/xdg/waybar/
+sudo mv -vf ~/hyprland-config/waybar/style.css /etc/xdg/waybar/
 sudo rm -rf /etc/xdg/waybar/config
-cd ~/.config/
-mkdir waybar
-cd ~/hyprland-config/waybar/
-sudo mv -f scripts/ ~/.config/waybar/
-chmod +x ~/.config/waybar/scripts/waybar-wttr.py
-cd ~/Downloads/
+sudo mv -vf ~/hyprland-config/waybar/scripts/ /etc/xdg/waybar/
+sudo chmod +x /etc/xdg/waybar/scripts/waybar-wttr.py
 
 ### Enabling sddm ###
 
 sudo systemctl enable sddm
+sudo systemctl set-default graphical.target
 
 GREEN='\033[0;32m'
 printf "\n${GREEN} Now you can reboot!\n"

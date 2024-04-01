@@ -55,7 +55,7 @@
         "tooltip" : true,
         "format" : "{}",
         "interval" : 30,
-        "exec" : "~/.config/waybar/scripts/waybar-wttr.py",
+        "exec" : "/etc/xdg/waybar/scripts/waybar-wttr.py",
         "return-type" : "json"
     },
     "tray": {
