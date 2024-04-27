@@ -1,1 +1,1 @@
-<h1 align="center" id="title">Hyprland desktop configs</h1>
+![Screenshot](https://i.ibb.co/HGNLRbZ/2024-04-27-17-14.png)
