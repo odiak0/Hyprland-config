@@ -1,5 +1,9 @@
 #!/bin/bash
 
+### Set the script to exit on error ###
+
+set -e
+
 ### Updating system ###
 
 sudo pacman -Syu
@@ -66,7 +70,7 @@ mkdir -p $HOME/Downloads/nerdfonts/
 cd $HOME/Downloads/
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/CascadiaCode.zip
 unzip 'CascadiaCode.zip' -d $HOME/Downloads/nerdfonts/
-rm -rf *.zip
+rm -rf CascadiaCode.zip
 sudo mv $HOME/Downloads/nerdfonts/ /usr/share/fonts/
 
 fc-cache -rv
