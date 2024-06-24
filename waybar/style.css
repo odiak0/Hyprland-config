@@ -52,6 +52,8 @@ tooltip {
 #custom-weather,
 #window,
 #clock,
+#cpu,
+#memory,
 #battery,
 #pulseaudio,
 #network,
@@ -76,6 +78,22 @@ tooltip {
     margin-left: 10px;
     padding-right: 0px;
     padding-left: 5px;
+}
+
+#memory {
+    color: #89b4fa;
+    background: #1e1e2e;
+    padding: 0px 10px;
+    margin: 3px 0px;
+    margin-top: 10px;
+    border: 1px solid #181825;
+}
+
+#cpu {
+    color: #89b4fa;
+    border-radius: 10px 0px 0px 10px;
+    border-left: 0px;
+    border-right: 0px;
 }
 
 #custom-caffeine {
@@ -105,7 +123,7 @@ tooltip {
 }
 
 #pulseaudio {
-    color: #89b4fa;
+    color: #cba6f7;
     border-left: 0px;
     border-right: 0px;
 }
@@ -120,9 +138,11 @@ tooltip {
 
 #battery {
     color: #a6e3a1;
-    border-radius: 10px 0px 0px 10px;
-    border-left: 0px;
-    border-right: 0px;
+    background: #1e1e2e;
+    padding: 0px 10px;
+    margin: 3px 0px;
+    margin-top: 10px;
+    border: 1px solid #181825;
 }
 
 #custom-weather {
