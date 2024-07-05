@@ -28,7 +28,7 @@ rm -rf ~/yay
 
 ### Installing packages ###
 
-yay -S --noconfirm --needed hyprland lxsession thunar pamixer flameshot fastfetch fuse2 xdg-desktop-portal-gtk xdg-desktop-portal-hyprland thunar-archive-plugin thunar-media-tags-plugin thunar-volman gvfs thorium-browser-bin kitty waybar sddm wget curl unzip btop ffmpeg neovim rofi-wayland ttf-liberation pavucontrol wl-clipboard swaybg ffmpegthumbnailer nwg-look-bin nordic-theme papirus-icon-theme dunst otf-sora ttf-nerd-fonts-symbols-common otf-firamono-nerd inter-font ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-jetbrains-mono-nerd ttf-icomoon-feather ttf-iosevka-nerd adobe-source-code-pro-fonts brightnessctl hyprpicker
+yay -S --noconfirm --needed hyprland lxsession thunar pamixer flameshot fastfetch fuse2 xarchiver xdg-desktop-portal-gtk xdg-desktop-portal-hyprland thunar-archive-plugin thunar-media-tags-plugin thunar-volman gvfs thorium-browser-bin kitty waybar sddm wget curl unzip btop ffmpeg neovim rofi-wayland ttf-liberation pavucontrol wl-clipboard swaybg ffmpegthumbnailer nwg-look-bin nordic-theme papirus-icon-theme dunst otf-sora ttf-nerd-fonts-symbols-common otf-firamono-nerd inter-font ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-jetbrains-mono-nerd ttf-icomoon-feather ttf-iosevka-nerd adobe-source-code-pro-fonts brightnessctl hyprpicker
 
 ### Enabling sddm ###
 
