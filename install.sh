@@ -1,8 +1,7 @@
 #!/bin/bash
 
-### Set the script to exit on error ###
-
-set -e
+GREEN="\e[32m"
+ENDCOLOR="\e[0m"
 
 ### Updating system ###
 
@@ -20,9 +19,9 @@ if [[ $pkgs =~ ^[Yy]$ ]]; then
 
 ### Installing yay ###
 
-cd
+cd || exit
 git clone https://aur.archlinux.org/yay.git
-cd yay
+cd yay || exit
 makepkg -si --noconfirm --needed
 rm -rf ~/yay
 
@@ -48,7 +47,7 @@ if [[ $configs =~ ^[Yy]$ ]]; then
 
 ### Moving configs ###
 
-cd ~/hyprland-config/
+cd ~/hyprland-config/ || exit
 mkdir ~/.config/hypr
 mv -vf ~/hyprland-config/hyprland/hyprland.conf ~/.config/hypr/
 mkdir ~/.config/kitty
@@ -66,12 +65,12 @@ sudo chmod +x /etc/xdg/waybar/scripts/waybar-wttr.py
 
 ### Fonts for Waybar ###
 
-mkdir -p $HOME/Downloads/nerdfonts/
-cd $HOME/Downloads/
+mkdir -p "$HOME"/Downloads/nerdfonts/
+cd "$HOME"/Downloads/ || exit
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/CascadiaCode.zip
-unzip 'CascadiaCode.zip' -d $HOME/Downloads/nerdfonts/
+unzip 'CascadiaCode.zip' -d "$HOME"/Downloads/nerdfonts/
 rm -rf CascadiaCode.zip
-sudo mv $HOME/Downloads/nerdfonts/ /usr/share/fonts/
+sudo mv "$HOME"/Downloads/nerdfonts/ /usr/share/fonts/
 
 fc-cache -rv
 fi
@@ -91,5 +90,4 @@ if [[ $nvidia =~ ^[Yy]$ ]]; then
 yay -S --noconfirm nvidia lib32-nvidia-utils
 fi
 
-GREEN='\033[0;32m'
-printf "\n${GREEN} Now you can reboot!\n"
+echo -e "${GREEN}Now you can reboot!${ENDCOLOR}"
