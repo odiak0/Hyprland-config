@@ -87,7 +87,7 @@ if [[ $nvidia =~ ^[Yy]$ ]]; then
 
 ### Installing nvidia drivers ###
 
-yay -S --noconfirm nvidia lib32-nvidia-utils
+yay -S --noconfirm nvidia-dkms lib32-nvidia-utils
 fi
 
 echo -e "${GREEN}Now you can reboot!${ENDCOLOR}"
