@@ -149,18 +149,23 @@ move_configs() {
 move_wallpapers() {
     print_message "Moving wallpapers..." "$YELLOW"
     
-    wallpaper_src="$LINUXTOOLBOXDIR/hyprland-config/wallpapers"
-    wallpaper_dest="$HOME/wallpapers"
+    wallpaper_src="$LINUXTOOLBOXDIR/hyprland-config/wallpaper"
+    wallpaper_dest="$HOME/wallpaper"
+
+    # Check if source directory exists
     if [ ! -d "$wallpaper_src" ]; then
-        print_message "Wallpaper source directory does not exist: $wallpaper_src" "$RED"
+        print_message "Wallpaper source directory not found: $wallpaper_src" "$RED"
         return
     fi
 
+    # Create destination directory if it doesn't exist
     mkdir -p "$wallpaper_dest"
-    if sudo mv -vf "$wallpaper_src"/* "$wallpaper_dest"; then
-        print_message "Successfully moved wallpapers to $wallpaper_dest" "$GREEN"
+
+    # Move wallpapers
+    if mv -v "$wallpaper_src"/* "$wallpaper_dest"; then
+        print_message "Wallpapers moved to $wallpaper_dest" "$GREEN"
     else
-        print_message "Failed to move wallpapers to $wallpaper_dest" "$RED"
+        print_message "Failed to move wallpapers" "$RED"
     fi
 }
 
