@@ -93,72 +93,89 @@ install_packages() {
 move_configs() {
     print_message "Moving configs..." "$YELLOW"
 
+    # Ask if user is using Hyprland on a laptop
+    read -rp "Are you using Hyprland on a laptop? (y/n) " is_laptop
+
     # Configuration files to move
     config_files=(
-        "hyprland/hyprland.conf:~/.config/hypr/hyprland.conf"
-        "kitty/kitty.conf:~/.config/kitty/kitty.conf"
-        "rofi/config.rasi:~/.config/rofi/config.rasi"
-        "sddm-theme/aerial/:/usr/share/sddm/themes/aerial/"
+        "kitty/kitty.conf:$HOME/.config/kitty/kitty.conf"
+        "rofi/config.rasi:$HOME/.config/rofi/config.rasi"
+        "sddm-theme/aerial:/usr/share/sddm/themes/aerial"
         "waybar/config.jsonc:/etc/xdg/waybar/config.jsonc"
         "waybar/style.css:/etc/xdg/waybar/style.css"
-        "waybar/scripts/:/etc/xdg/waybar/scripts/:exec"
+        "waybar/scripts:/etc/xdg/waybar/scripts:exec"
     )
+
+    # Choose the appropriate Hyprland config based on user input
+    if [[ $is_laptop =~ ^[Yy]$ ]]; then
+        config_files+=("hyprland-for-laptop/hyprland.conf:$HOME/.config/hypr/hyprland.conf")
+    else
+        config_files+=("hyprland/hyprland.conf:$HOME/.config/hypr/hyprland.conf")
+    fi
 
     # Move each configuration file
     for config in "${config_files[@]}"; do
         IFS=':' read -r src dest exec_flag <<< "$config"
-        sudo mkdir -p "$(dirname "$dest")"
-        if sudo mv -vf "$LINUXTOOLBOXDIR/hyprland-config/$src" "$dest"; then
-            print_message "Successfully moved $src to $dest" "$GREEN"
-        else
-            print_message "Failed to move $src to $dest" "$RED"
+        src="$LINUXTOOLBOXDIR/hyprland-config/$src"
+        
+        if [ ! -e "$src" ]; then
+            print_message "Source does not exist: $src" "$RED"
+            continue
         fi
+
+        sudo mkdir -p "$(dirname "$dest")"
+        if [ -d "$src" ]; then
+            if sudo mv -vf "$src" "$(dirname "$dest")"; then
+                print_message "Successfully moved directory $src to $(dirname "$dest")" "$GREEN"
+            else
+                print_message "Failed to move directory $src to $(dirname "$dest")" "$RED"
+            fi
+        else
+            if sudo mv -vf "$src" "$dest"; then
+                print_message "Successfully moved $src to $dest" "$GREEN"
+            else
+                print_message "Failed to move $src to $dest" "$RED"
+            fi
+        fi
+
         if [[ "$exec_flag" == "exec" ]]; then
-            sudo chmod +x "${dest}waybar-wttr.py"
+            sudo find "$dest" -type f -name "*.py" -exec chmod +x {} +
+            print_message "Made Python scripts in $dest executable" "$GREEN"
         fi
     done
+}
 
-    # Move wallpapers
-    mkdir -p ~/wallpaper
-    if mv -vf "$LINUXTOOLBOXDIR/hyprland-config/wallpaper/"* ~/wallpaper; then
-        print_message "Wallpapers moved successfully." "$GREEN"
-    else
-        print_message "Failed to move wallpapers." "$RED"
-    fi
+# Function to move wallpapers
+move_wallpapers() {
+    print_message "Moving wallpapers..." "$YELLOW"
     
-    # Install additional fonts
-    print_message "Installing additional fonts..." "$YELLOW"
-    mkdir -p "$HOME/Downloads/nerdfonts/"
-    cd "$HOME/Downloads/" || { print_message "Failed to change directory to Downloads." "$RED"; return 1; }
-    
-    if wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/CascadiaCode.zip; then
-        print_message "CascadiaCode.zip downloaded successfully." "$GREEN"
-    else
-        print_message "Failed to download CascadiaCode.zip." "$RED"
-        return 1
-    fi
-    
-    if unzip 'CascadiaCode.zip' -d "$HOME/Downloads/nerdfonts/"; then
-        print_message "CascadiaCode.zip extracted successfully." "$GREEN"
-    else
-        print_message "Failed to extract CascadiaCode.zip." "$RED"
-        return 1
-    fi
-    
-    rm -rf CascadiaCode.zip
-    
-    if sudo mv "$HOME/Downloads/nerdfonts/" /usr/share/fonts/; then
-        print_message "Fonts moved to system directory successfully." "$GREEN"
-    else
-        print_message "Failed to move fonts to system directory." "$RED"
-        return 1
+    wallpaper_src="$LINUXTOOLBOXDIR/hyprland-config/wallpapers"
+    wallpaper_dest="$HOME/wallpapers"
+    if [ ! -d "$wallpaper_src" ]; then
+        print_message "Wallpaper source directory does not exist: $wallpaper_src" "$RED"
+        return
     fi
 
-    if fc-cache -fv; then
-        print_message "Font cache updated successfully." "$GREEN"
+    mkdir -p "$wallpaper_dest"
+    if sudo mv -vf "$wallpaper_src"/* "$wallpaper_dest"; then
+        print_message "Successfully moved wallpapers to $wallpaper_dest" "$GREEN"
     else
-        print_message "Failed to update font cache." "$RED"
+        print_message "Failed to move wallpapers to $wallpaper_dest" "$RED"
     fi
+}
+
+# Function to install additional fonts
+install_additional_fonts() {
+    print_message "Installing Cascadia Code font..." "$YELLOW"
+    
+    # Ensure AUR helper is set up
+    if [ -z "$helper" ]; then
+        setup_aur_helper
+    fi
+
+    "$helper" -S --noconfirm --needed ttf-cascadia-code
+    
+    print_message "Cascadia Code font installed successfully" "$GREEN"
 }
 
 # Function to install NVIDIA drivers
@@ -192,6 +209,20 @@ main() {
         move_configs
     else
         print_message "No configs moved." "$RED"
+    fi
+
+    read -rp "Would you like to move the wallpapers? (y/n) " wallpapers
+    if [[ $wallpapers =~ ^[Yy]$ ]]; then
+        move_wallpapers
+    else
+        print_message "No wallpapers moved." "$RED"
+    fi
+
+    read -rp "Would you like to install additional fonts (Cascadia Code)? (y/n) " fonts
+    if [[ $fonts =~ ^[Yy]$ ]]; then
+        install_additional_fonts
+    else
+        print_message "Cascadia Code font not installed." "$RED"
     fi
 
     read -rp "Would you like to install NVIDIA drivers? (y/n) " nvidia
