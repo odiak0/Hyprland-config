@@ -10,7 +10,11 @@ ENDCOLOR="\e[0m"
 print_message() {
     local message="$1"
     local color="$2"
-    echo -e "${color}${message}${ENDCOLOR}"
+    if [ "$color" = "$RED" ]; then
+        whiptail --title "Error" --msgbox "$message" 8 78
+    else
+        echo -e "${color}${message}${ENDCOLOR}"
+    fi
 }
 
 # Check if pacman exists
@@ -109,9 +113,6 @@ install_packages() {
 
 # Function to move configs
 move_configs() {
-    print_message "WARNING: This will overwrite existing configuration files. Make sure you have backups if needed." "$YELLOW"
-    sleep 5  # Pause for 5 seconds to allow the user to read the warning
-
     print_message "Moving configs..." "$YELLOW"
 
     # Ask if user is using Hyprland on a laptop
@@ -237,42 +238,37 @@ main() {
     print_message "Updating system..." "$YELLOW"
     sudo pacman -Syu
 
-    read -rp "Would you like to install the packages? (y/n) " pkgs
-    if [[ $pkgs =~ ^[Yy]$ ]]; then
+    if whiptail --title "Install Packages" --yesno "Would you like to install the packages?" 8 78; then
         install_packages
     else
-        print_message "No packages installed." "$RED"
+        print_message "No packages installed." "$YELLOW"
     fi
 
-    read -rp "Would you like to move the configs? (y/n) " configs
-    if [[ $configs =~ ^[Yy]$ ]]; then
+    if whiptail --title "Move Configs" --yesno "Would you like to move the configs?\n\nWARNING: This will overwrite existing configuration files. Make sure you have backups if needed." 12 78; then
         move_configs
     else
-        print_message "No configs moved." "$RED"
+        print_message "No configs moved." "$YELLOW"
     fi
 
-    read -rp "Would you like to move the wallpapers? (y/n) " wallpapers
-    if [[ $wallpapers =~ ^[Yy]$ ]]; then
+    if whiptail --title "Move Wallpapers" --yesno "Would you like to move the wallpapers?" 8 78; then
         move_wallpapers
     else
-        print_message "No wallpapers moved." "$RED"
+        print_message "No wallpapers moved." "$YELLOW"
     fi
 
-    read -rp "Would you like to install fonts for waybar (strongly recommended)? (y/n) " fonts
-    if [[ $fonts =~ ^[Yy]$ ]]; then
+    if whiptail --title "Install Fonts" --yesno "Would you like to install fonts for waybar (strongly recommended)?" 8 78; then
         install_additional_fonts
     else
-        print_message "Cascadia Code font not installed." "$RED"
+        print_message "Cascadia Code font not installed." "$YELLOW"
     fi
 
-    read -rp "Would you like to install NVIDIA drivers? (y/n) " nvidia
-    if [[ $nvidia =~ ^[Yy]$ ]]; then
+    if whiptail --title "Install NVIDIA Drivers" --yesno "Would you like to install NVIDIA drivers?" 8 78; then
         install_nvidia_drivers
     else
-        print_message "NVIDIA drivers not installed." "$RED"
+        print_message "NVIDIA drivers not installed." "$YELLOW"
     fi
 
-    print_message "Installation completed. You can now reboot your system!" "$GREEN"
+    whiptail --title "Installation Complete" --msgbox "Installation completed. You can now reboot your system!" 8 78
 }
 
 # Run the main function
