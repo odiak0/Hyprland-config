@@ -122,10 +122,10 @@ move_configs() {
     config_files=(
         "kitty/kitty.conf:$HOME/.config/kitty/kitty.conf"
         "rofi/config.rasi:$HOME/.config/rofi/config.rasi"
-        "sddm-theme/aerial:/usr/share/sddm/themes/aerial"
-        "waybar/config.jsonc:/etc/xdg/waybar/config.jsonc"
-        "waybar/style.css:/etc/xdg/waybar/style.css"
-        "waybar/scripts:/etc/xdg/waybar/scripts:exec"
+        "sddm-theme/aerial:/usr/share/sddm/themes/aerial:sudo"
+        "waybar/config.jsonc:/etc/xdg/waybar/config.jsonc:sudo"
+        "waybar/style.css:/etc/xdg/waybar/style.css:sudo"
+        "waybar/scripts:/etc/xdg/waybar/scripts:sudo,exec"
     )
 
     # Choose the appropriate Hyprland config based on user input
@@ -137,7 +137,7 @@ move_configs() {
 
     # Move each configuration file
     for config in "${config_files[@]}"; do
-        IFS=':' read -r src dest exec_flag <<< "$config"
+        IFS=':' read -r src dest action <<< "$config"
         src="$LINUXTOOLBOXDIR/hyprland-config/$src"
         
         if [ ! -e "$src" ]; then
@@ -145,23 +145,28 @@ move_configs() {
             continue
         fi
 
-        sudo mkdir -p "$(dirname "$dest")"
-        if [ -d "$src" ]; then
-            if sudo mv -vf "$src" "$(dirname "$dest")"; then
-                print_message "Successfully moved directory $src to $(dirname "$dest")" "$GREEN"
+        if [[ "$action" == *"sudo"* ]]; then
+            sudo mkdir -p "$(dirname "$dest")"
+            if sudo mv -vf "$src" "$dest"; then
+                print_message "Successfully moved $src to $dest" "$GREEN"
             else
-                print_message "Failed to move directory $src to $(dirname "$dest")" "$RED"
+                print_message "Failed to move $src to $dest" "$RED"
             fi
         else
-            if sudo mv -vf "$src" "$dest"; then
+            mkdir -p "$(dirname "$dest")"
+            if mv -vf "$src" "$dest"; then
                 print_message "Successfully moved $src to $dest" "$GREEN"
             else
                 print_message "Failed to move $src to $dest" "$RED"
             fi
         fi
 
-        if [[ "$exec_flag" == "exec" ]]; then
-            sudo find "$dest" -type f -name "*.py" -exec chmod +x {} +
+        if [[ "$action" == *"exec"* ]]; then
+            if [[ "$action" == *"sudo"* ]]; then
+                sudo find "$dest" -type f -name "*.py" -exec chmod +x {} +
+            else
+                find "$dest" -type f -name "*.py" -exec chmod +x {} +
+            fi
             print_message "Made Python scripts in $dest executable" "$GREEN"
         fi
     done
