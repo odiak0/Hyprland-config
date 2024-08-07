@@ -2,7 +2,6 @@
 
 # Colors for better readability
 GREEN="\e[32m"
-RED="\e[31m"
 YELLOW="\e[33m"
 ENDCOLOR="\e[0m"
 
@@ -10,16 +9,12 @@ ENDCOLOR="\e[0m"
 print_message() {
     local message="$1"
     local color="$2"
-    if [ "$color" = "$RED" ]; then
-        whiptail --title "Error" --msgbox "$message" 8 78
-    else
-        echo -e "${color}${message}${ENDCOLOR}"
-    fi
+    echo -e "${color}${message}${ENDCOLOR}"
 }
 
 # Check if pacman exists
 if ! command -v pacman &> /dev/null; then
-    print_message "Error: pacman not found. This script is intended for Arch-based systems." "$RED"
+    whiptail --title "Error" --msgbox "Error: pacman not found. This script is intended for Arch-based systems." 8 78
     exit 1
 fi
 
@@ -31,7 +26,7 @@ check_and_install_git() {
         if command -v git &> /dev/null; then
             print_message "Git has been successfully installed." "$GREEN"
         else
-            print_message "Failed to install Git. Please install it manually and run this script again." "$RED"
+            whiptail --title "Error" --msgbox "Failed to install Git. Please install it manually and run this script again." 8 78
             exit 1
         fi
     else
@@ -56,7 +51,7 @@ setup_linuxtoolbox() {
         if git clone https://github.com/odiak0/hyprland-config "$LINUXTOOLBOXDIR/hyprland-config"; then
             print_message "Successfully cloned hyprland-config repository" "$GREEN"
         else
-            print_message "Failed to clone hyprland-config repository" "$RED"
+            whiptail --title "Error" --msgbox "Failed to clone hyprland-config repository" 8 78
             exit 1
         fi
     fi
@@ -66,12 +61,14 @@ setup_linuxtoolbox() {
 
 # Function to set up AUR helper
 setup_aur_helper() {
-    # Ask user to choose between paru and yay
-    read -rp "Do you want to use paru or yay as your AUR helper? (p/y) " aur_helper
-    if [[ $aur_helper =~ ^[Pp]$ ]]; then
-        helper="paru"
-    else
-        helper="yay"
+    print_message "Setting up AUR helper..." "$YELLOW"
+
+    # Ask user to choose between paru and yay using whiptail
+    if ! helper=$(whiptail --title "AUR Helper Selection" --menu "Choose your preferred AUR helper:" 15 60 2 \
+    "paru" "Rust-based AUR helper" \
+    "yay" "Go-based AUR helper" 3>&1 1>&2 2>&3); then
+        print_message "AUR helper selection cancelled. Exiting." "$YELLOW"
+        exit 1
     fi
 
     # Install chosen AUR helper if not present
@@ -115,8 +112,12 @@ install_packages() {
 move_configs() {
     print_message "Moving configs..." "$YELLOW"
 
-    # Ask if user is using Hyprland on a laptop
-    read -rp "Are you using Hyprland on a laptop? (y/n) " is_laptop
+    # Ask if user is using Hyprland on a laptop using whiptail
+    if whiptail --title "Laptop Configuration" --yesno "Are you using Hyprland on a laptop?" 8 78; then
+        is_laptop="y"
+    else
+        is_laptop="n"
+    fi
 
     # Configuration files to move
     config_files=(
@@ -129,7 +130,7 @@ move_configs() {
     )
 
     # Choose the appropriate Hyprland config based on user input
-    if [[ $is_laptop =~ ^[Yy]$ ]]; then
+    if [[ $is_laptop == "y" ]]; then
         config_files+=("hyprland-for-laptop/hyprland.conf:$HOME/.config/hypr/hyprland.conf")
     else
         config_files+=("hyprland/hyprland.conf:$HOME/.config/hypr/hyprland.conf")
@@ -141,7 +142,7 @@ move_configs() {
         src="$LINUXTOOLBOXDIR/hyprland-config/$src"
         
         if [ ! -e "$src" ]; then
-            print_message "Source does not exist: $src" "$RED"
+            whiptail --title "Error" --msgbox "Source does not exist: $src" 8 78
             continue
         fi
 
@@ -150,14 +151,14 @@ move_configs() {
             if sudo mv -vf "$src" "$dest"; then
                 print_message "Successfully moved $src to $dest" "$GREEN"
             else
-                print_message "Failed to move $src to $dest" "$RED"
+                whiptail --title "Error" --msgbox "Failed to move $src to $dest" 8 78
             fi
         else
             mkdir -p "$(dirname "$dest")"
             if mv -vf "$src" "$dest"; then
                 print_message "Successfully moved $src to $dest" "$GREEN"
             else
-                print_message "Failed to move $src to $dest" "$RED"
+                whiptail --title "Error" --msgbox "Failed to move $src to $dest" 8 78
             fi
         fi
 
@@ -181,7 +182,7 @@ move_wallpapers() {
 
     # Check if source directory exists
     if [ ! -d "$wallpaper_src" ]; then
-        print_message "Wallpaper source directory not found: $wallpaper_src" "$RED"
+        whiptail --title "Error" --msgbox "Wallpaper source directory not found: $wallpaper_src" 8 78
         return
     fi
 
@@ -192,7 +193,7 @@ move_wallpapers() {
     if mv -v "$wallpaper_src"/* "$wallpaper_dest"; then
         print_message "Wallpapers moved to $wallpaper_dest" "$GREEN"
     else
-        print_message "Failed to move wallpapers" "$RED"
+        whiptail --title "Error" --msgbox "Failed to move wallpapers" 8 78
     fi
 }
 
@@ -214,13 +215,13 @@ install_additional_fonts() {
                 fc-cache -fv
                 print_message "Cascadia Code Nerd Font installed successfully." "$GREEN"
             else
-                print_message "Failed to move fonts to system directory." "$RED"
+                whiptail --title "Error" --msgbox "Failed to move fonts to system directory." 8 78
             fi
         else
-            print_message "Failed to unzip font file." "$RED"
+            whiptail --title "Error" --msgbox "Failed to unzip font file." 8 78
         fi
     else
-        print_message "Failed to download font file." "$RED"
+        whiptail --title "Error" --msgbox "Failed to download font file." 8 78
     fi
 }
 
