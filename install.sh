@@ -148,14 +148,14 @@ copy_configs() {
 
         if [[ "$action" == *"sudo"* ]]; then
             sudo mkdir -p "$(dirname "$dest")"
-            if sudo cp -vf "$src" "$dest"; then
+            if sudo cp -rvf "$src" "$dest"; then
                 print_message "Successfully copied $src to $dest" "$GREEN"
             else
                 whiptail --title "Error" --msgbox "Failed to copy $src to $dest" 8 78
             fi
         else
             mkdir -p "$(dirname "$dest")"
-            if cp -vf "$src" "$dest"; then
+            if cp -rvf "$src" "$dest"; then
                 print_message "Successfully copied $src to $dest" "$GREEN"
             else
                 whiptail --title "Error" --msgbox "Failed to copy $src to $dest" 8 78
@@ -190,7 +190,7 @@ copy_wallpapers() {
     mkdir -p "$wallpaper_dest"
 
     # Copy wallpapers
-    if cp -vf "$wallpaper_src"/* "$wallpaper_dest"; then
+    if cp -rvf "$wallpaper_src"/* "$wallpaper_dest"; then
         print_message "Wallpapers copied to $wallpaper_dest" "$GREEN"
     else
         whiptail --title "Error" --msgbox "Failed to copy wallpapers" 8 78
