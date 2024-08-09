@@ -108,9 +108,9 @@ install_packages() {
     sudo systemctl set-default graphical.target
 }
 
-# Function to move configs
-move_configs() {
-    print_message "Moving configs..." "$YELLOW"
+# Function to copy configs
+copy_configs() {
+    print_message "Copying configs..." "$YELLOW"
 
     # Ask if user is using Hyprland on a laptop using whiptail
     if whiptail --title "Laptop Configuration" --yesno "Are you using Hyprland on a laptop?" 8 78; then
@@ -119,7 +119,7 @@ move_configs() {
         is_laptop="n"
     fi
 
-    # Configuration files to move
+    # Configuration files to copy
     config_files=(
         "kitty/kitty.conf:$HOME/.config/kitty/kitty.conf"
         "rofi/config.rasi:$HOME/.config/rofi/config.rasi"
@@ -136,7 +136,7 @@ move_configs() {
         config_files+=("hyprland/hyprland.conf:$HOME/.config/hypr/hyprland.conf")
     fi
 
-    # Move each configuration file
+    # Copy each configuration file
     for config in "${config_files[@]}"; do
         IFS=':' read -r src dest action <<< "$config"
         src="$LINUXTOOLBOXDIR/hyprland-config/$src"
@@ -148,17 +148,17 @@ move_configs() {
 
         if [[ "$action" == *"sudo"* ]]; then
             sudo mkdir -p "$(dirname "$dest")"
-            if sudo mv -vf "$src" "$dest"; then
-                print_message "Successfully moved $src to $dest" "$GREEN"
+            if sudo cp -vf "$src" "$dest"; then
+                print_message "Successfully copied $src to $dest" "$GREEN"
             else
-                whiptail --title "Error" --msgbox "Failed to move $src to $dest" 8 78
+                whiptail --title "Error" --msgbox "Failed to copy $src to $dest" 8 78
             fi
         else
             mkdir -p "$(dirname "$dest")"
-            if mv -vf "$src" "$dest"; then
-                print_message "Successfully moved $src to $dest" "$GREEN"
+            if cp -vf "$src" "$dest"; then
+                print_message "Successfully copied $src to $dest" "$GREEN"
             else
-                whiptail --title "Error" --msgbox "Failed to move $src to $dest" 8 78
+                whiptail --title "Error" --msgbox "Failed to copy $src to $dest" 8 78
             fi
         fi
 
@@ -173,9 +173,9 @@ move_configs() {
     done
 }
 
-# Function to move wallpapers
-move_wallpapers() {
-    print_message "Moving wallpapers..." "$YELLOW"
+# Function to copy wallpapers
+copy_wallpapers() {
+    print_message "Copying wallpapers..." "$YELLOW"
     
     wallpaper_src="$LINUXTOOLBOXDIR/hyprland-config/wallpaper"
     wallpaper_dest="$HOME/wallpaper"
@@ -189,11 +189,11 @@ move_wallpapers() {
     # Create destination directory if it doesn't exist
     mkdir -p "$wallpaper_dest"
 
-    # Move wallpapers
-    if mv -v "$wallpaper_src"/* "$wallpaper_dest"; then
-        print_message "Wallpapers moved to $wallpaper_dest" "$GREEN"
+    # Copy wallpapers
+    if cp -vf "$wallpaper_src"/* "$wallpaper_dest"; then
+        print_message "Wallpapers copied to $wallpaper_dest" "$GREEN"
     else
-        whiptail --title "Error" --msgbox "Failed to move wallpapers" 8 78
+        whiptail --title "Error" --msgbox "Failed to copy wallpapers" 8 78
     fi
 }
 
@@ -250,16 +250,16 @@ main() {
         print_message "No packages installed." "$YELLOW"
     fi
 
-    if whiptail --title "Move Configs" --yesno "Would you like to move the configs?\n\nWARNING: This will overwrite existing configuration files. Make sure you have backups if needed." 12 78; then
-        move_configs
+    if whiptail --title "Copy Configs" --yesno "Would you like to copy the configs?\n\nWARNING: This will overwrite existing configuration files. Make sure you have backups if needed." 12 78; then
+        copy_configs
     else
-        print_message "No configs moved." "$YELLOW"
+        print_message "No configs copied." "$YELLOW"
     fi
 
-    if whiptail --title "Move Wallpapers" --yesno "Would you like to move the wallpapers?" 8 78; then
-        move_wallpapers
+    if whiptail --title "Copy Wallpapers" --yesno "Would you like to copy the wallpapers?" 8 78; then
+        copy_wallpapers
     else
-        print_message "No wallpapers moved." "$YELLOW"
+        print_message "No wallpapers copied." "$YELLOW"
     fi
 
     if whiptail --title "Install Fonts" --yesno "Would you like to install fonts for waybar (strongly recommended)?" 8 78; then
