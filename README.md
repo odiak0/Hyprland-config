@@ -1,1 +1,1 @@
-![Screenshot](https://i.ibb.co/HGNLRbZ/2024-04-27-17-14.png)
+![Screenshot](https://raw.githubusercontent.com/odiak0/Hyprland-config/main/data/hypr.png)
