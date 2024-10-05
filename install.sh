@@ -92,7 +92,7 @@ install_packages() {
     packages=(
         hyprland lxsession thunar pamixer flameshot fastfetch fuse2 xarchiver
         xdg-desktop-portal-gtk xdg-desktop-portal-hyprland thunar-archive-plugin
-        thunar-media-tags-plugin thunar-volman gvfs google-chrome kitty waybar
+        thunar-media-tags-plugin thunar-volman gvfs google-chrome alacritty waybar
         sddm wget curl unzip btop ffmpeg neovim rofi-wayland ttf-liberation
         pavucontrol wl-clipboard swaybg ffmpegthumbnailer nwg-look nordic-theme
         papirus-icon-theme dunst otf-sora ttf-nerd-fonts-symbols-common otf-firamono-nerd
@@ -121,7 +121,7 @@ copy_configs() {
 
     # Configuration files to copy
     config_files=(
-        "kitty/kitty.conf:$HOME/.config/kitty/kitty.conf"
+        "alacritty/alacritty.toml:$HOME/.config/alacritty/alacritty.toml"
         "rofi/config.rasi:$HOME/.config/rofi/config.rasi"
         "sddm-theme/aerial:/usr/share/sddm/themes/aerial:sudo"
         "waybar/config.jsonc:/etc/xdg/waybar/config.jsonc:sudo"
@@ -203,7 +203,7 @@ install_additional_fonts() {
     
     local font_dir="$HOME/Downloads/nerdfonts"
     local font_zip="CascadiaCode.zip"
-    local font_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/$font_zip"
+    local font_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/$font_zip"
     
     mkdir -p "$font_dir"
     cd "$HOME/Downloads" || exit

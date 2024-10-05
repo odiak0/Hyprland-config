@@ -1,0 +1,45 @@
+live_config_reload = true
+working_directory = "None"
+
+[window]
+title = "Alacritty"
+decorations = "none"
+blur = true
+opacity = 0.6
+padding.x = 0
+padding.y = 0
+
+[cursor.style]
+shape= "Beam"
+blinking = "Never"
+
+[font]
+normal.family = "CascadiaCode"
+normal.style = "Regular"
+size = 15.0
+
+[font.bold]
+family = "CascadiaCode"
+style = "Bold"
+
+[font.italic]
+family = "CascadiaCode"
+style = "Italic"
+
+[keyboard]
+bindings = [
+  # Clipboard
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+
+  # Scrolling
+  { key = "Up", mods = "Control|Shift", action = "ScrollLineUp" },
+  { key = "Down", mods = "Control|Shift", action = "ScrollLineDown" },
+  { key = "PageUp", mods = "Control|Shift", action = "ScrollPageUp" },
+  { key = "PageDown", mods = "Control|Shift", action = "ScrollPageDown" },
+  { key = "Home", mods = "Control|Shift", action = "ScrollToTop" },
+  { key = "End", mods = "Control|Shift", action = "ScrollToBottom" },
+
+  # Miscellaneous
+  { key = "Backspace", mods = "Control", action = "ResetFontSize" },
+]
