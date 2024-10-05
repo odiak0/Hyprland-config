@@ -203,7 +203,7 @@ install_additional_fonts() {
     
     local font_dir="$HOME/Downloads/nerdfonts"
     local font_zip="CascadiaCode.zip"
-    local font_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/$font_zip"
+    local font_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/$font_zip"
     
     mkdir -p "$font_dir"
     cd "$HOME/Downloads" || exit
