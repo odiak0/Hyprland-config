@@ -14,16 +14,16 @@ shape= "Beam"
 blinking = "Never"
 
 [font]
-normal.family = "CascadiaCode"
+normal.family = "MesloLGS Nerd Font Mono"
 normal.style = "Regular"
 size = 15.0
 
 [font.bold]
-family = "CascadiaCode"
+family = "MesloLGS Nerd Font Mono"
 style = "Bold"
 
 [font.italic]
-family = "CascadiaCode"
+family = "MesloLGS Nerd Font Mono"
 style = "Italic"
 
 [keyboard]

@@ -97,7 +97,7 @@ install_packages() {
         pavucontrol wl-clipboard swaybg ffmpegthumbnailer nwg-look nordic-theme
         papirus-icon-theme dunst otf-sora ttf-nerd-fonts-symbols-common otf-firamono-nerd
         inter-font ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-jetbrains-mono-nerd
-        ttf-icomoon-feather ttf-iosevka-nerd adobe-source-code-pro-fonts ttf-cascadia-code python-requests
+        ttf-icomoon-feather ttf-iosevka-nerd adobe-source-code-pro-fonts ttf-meslo-nerd python-requests
         hyprpicker celluloid brightnessctl
     )
 
