@@ -98,7 +98,7 @@ install_packages() {
         papirus-icon-theme dunst otf-sora ttf-nerd-fonts-symbols-common otf-firamono-nerd
         inter-font ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-jetbrains-mono-nerd
         ttf-icomoon-feather ttf-iosevka-nerd adobe-source-code-pro-fonts ttf-meslo-nerd python-requests
-        hyprpicker celluloid brightnessctl
+        hyprpicker celluloid brightnessctl xcursor-breeze
     )
 
     "$helper" -S --noconfirm --needed "${packages[@]}"
