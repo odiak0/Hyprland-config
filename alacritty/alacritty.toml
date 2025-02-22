@@ -18,6 +18,8 @@ blinking = "Never"
 normal.family = "MesloLGS Nerd Font Mono"
 normal.style = "Regular"
 size = 15.0
+offset.x = 0
+offset.y = 3
 
 [font.bold]
 family = "MesloLGS Nerd Font Mono"
