@@ -86,7 +86,7 @@ install_packages() {
         thunar-media-tags-plugin thunar-volman gvfs google-chrome alacritty waybar
         sddm wget curl unzip btop ffmpeg neovim rofi-wayland ttf-liberation
         pavucontrol wl-clipboard swww ffmpegthumbnailer nwg-look grim slurp
-        papirus-icon-theme dunst otf-sora ttf-nerd-fonts-symbols-common otf-firamono-nerd
+        papirus-icon-theme dunst ttf-nerd-fonts-symbols-common otf-firamono-nerd
         inter-font ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-jetbrains-mono-nerd
         ttf-iosevka-nerd ttf-meslo-nerd python-requests
         hyprpicker celluloid brightnessctl xcursor-breeze
