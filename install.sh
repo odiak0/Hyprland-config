@@ -88,7 +88,7 @@ install_packages() {
         pavucontrol wl-clipboard swww ffmpegthumbnailer nwg-look grim slurp
         papirus-icon-theme dunst ttf-nerd-fonts-symbols-common otf-firamono-nerd
         inter-font ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-jetbrains-mono-nerd
-        ttf-iosevka-nerd ttf-meslo-nerd python-requests
+        ttf-iosevka-nerd ttf-meslo-nerd python-requests cantarell-fonts
         hyprpicker celluloid brightnessctl xcursor-breeze
     )
 
