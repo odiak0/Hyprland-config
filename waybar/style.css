@@ -79,10 +79,7 @@ tooltip {
 
 #memory {
     color: #89b4fa;
-    padding: 0px 10px;
-    margin: 3px 0px;
-    margin-top: 10px;
-    border-right: none;
+    border-right: 0px;
 }
 
 #cpu {
@@ -94,9 +91,7 @@ tooltip {
 
 #network {
     color: #89b4fa;
-    padding: 0px 10px;
-    margin: 3px 0px;
-    margin-top: 10px;
+    border-right: 0px;
 }
 
 #window {
@@ -128,7 +123,5 @@ tooltip {
 
 #battery {
     color: #a6e3a1;
-    padding: 0px 10px;
-    margin: 3px 0px;
-    margin-top: 10px;
+    border-right: 0px;
 }
