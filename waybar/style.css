@@ -91,7 +91,6 @@ tooltip {
 
 #network {
     color: #89b4fa;
-    border-right: 0px;
 }
 
 #window {
@@ -124,4 +123,5 @@ tooltip {
 #battery {
     color: #a6e3a1;
     border-right: 0px;
+    border-left: 0px;
 }
