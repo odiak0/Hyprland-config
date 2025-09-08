@@ -84,7 +84,7 @@ install_packages() {
         hyprland hyprpolkitagent thunar pamixer fastfetch fuse2 xarchiver
         xdg-desktop-portal-gtk xdg-desktop-portal-hyprland thunar-archive-plugin
         thunar-media-tags-plugin thunar-volman gvfs google-chrome alacritty waybar
-        sddm wget curl unzip btop ffmpeg neovim rofi-wayland ttf-liberation
+        sddm wget curl unzip btop ffmpeg neovim rofi ttf-liberation
         pavucontrol wl-clipboard swww ffmpegthumbnailer nwg-look grim slurp
         papirus-icon-theme dunst ttf-nerd-fonts-symbols-common otf-firamono-nerd
         inter-font ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-jetbrains-mono-nerd
