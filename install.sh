@@ -177,7 +177,7 @@ install_nvidia_drivers() {
         setup_aur_helper
     fi
     
-    "$helper" -S --noconfirm nvidia-dkms lib32-nvidia-utils
+    "$helper" -S --noconfirm nvidia-open-dkms lib32-nvidia-utils
 }
 
 main() {
