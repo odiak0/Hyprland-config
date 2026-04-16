@@ -89,7 +89,7 @@ install_packages() {
         papirus-icon-theme dunst ttf-nerd-fonts-symbols-common otf-firamono-nerd
         inter-font ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-jetbrains-mono-nerd
         ttf-iosevka-nerd ttf-meslo-nerd python-requests cantarell-fonts
-        hyprpicker celluloid brightnessctl xcursor-breeze
+        hyprpicker celluloid brightnessctl breeze-cursors
     )
 
     "$helper" -S --noconfirm --needed "${packages[@]}"
@@ -169,17 +169,6 @@ copy_wallpapers() {
     fi
 }
 
-install_nvidia_drivers() {
-    print_message "Installing NVIDIA drivers..." "$YELLOW"
-    
-    # Ensure AUR helper is set up
-    if [ -z "$helper" ]; then
-        setup_aur_helper
-    fi
-    
-    "$helper" -S --noconfirm nvidia-open-dkms lib32-nvidia-utils
-}
-
 main() {
     setup_linuxtoolbox
 
@@ -202,12 +191,6 @@ main() {
         copy_wallpapers
     else
         print_message "No wallpapers copied." "$YELLOW"
-    fi
-
-    if whiptail --title "Install NVIDIA Drivers" --yesno "Would you like to install NVIDIA drivers?" 8 78; then
-        install_nvidia_drivers
-    else
-        print_message "NVIDIA drivers not installed." "$YELLOW"
     fi
 
     whiptail --title "Installation Complete" --msgbox "Installation completed. You can now reboot your system!" 8 78
