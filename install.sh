@@ -85,7 +85,7 @@ install_packages() {
         xdg-desktop-portal-gtk xdg-desktop-portal-hyprland thunar-archive-plugin
         thunar-media-tags-plugin thunar-volman gvfs google-chrome alacritty waybar
         sddm wget curl unzip btop ffmpeg neovim rofi ttf-liberation
-        pavucontrol wl-clipboard swww ffmpegthumbnailer nwg-look grim slurp
+        pavucontrol wl-clipboard awww ffmpegthumbnailer nwg-look grim slurp
         papirus-icon-theme dunst ttf-nerd-fonts-symbols-common otf-firamono-nerd
         inter-font ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-jetbrains-mono-nerd
         ttf-iosevka-nerd ttf-meslo-nerd python-requests cantarell-fonts
