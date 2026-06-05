@@ -83,7 +83,7 @@ install_packages() {
     packages=(
         hyprland hyprpolkitagent thunar pamixer fastfetch fuse2 xarchiver
         xdg-desktop-portal-gtk xdg-desktop-portal-hyprland thunar-archive-plugin
-        thunar-media-tags-plugin thunar-volman gvfs google-chrome alacritty waybar
+        thunar-media-tags-plugin thunar-volman gvfs brave-origin-bin alacritty waybar
         sddm wget curl unzip btop ffmpeg neovim rofi ttf-liberation
         pavucontrol wl-clipboard awww ffmpegthumbnailer nwg-look grim slurp
         papirus-icon-theme dunst ttf-nerd-fonts-symbols-common otf-firamono-nerd
